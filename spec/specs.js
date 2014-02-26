@@ -1,74 +1,66 @@
-describe('Contact', function() {
-  describe('fullName', function() {
-      it('will ouput the first and last name with a space in between', function() {
-        var testContact = Object.create(Contact);
-        testContact.firstName = 'Steve';
-        testContact.lastName = 'Irwin'
-        testContact.fullName().should.equal('Steve Irwin');
-      });
-  });
-});
-
-describe('Address', function() {
-
-  describe('validAddress', function() {
-    it('returns false if the city or state has invalid characters', function () {
-      var testAddress = Object.create(Address);
-      testAddress.city = "Portl4nd";
-      testAddress.state = "Oregon";
-      testAddress.validAddress().should.equal(false);
-    })
-
-    it('returns false if the city or state has invalid characters', function () {
-      var testAddress = Object.create(Address);
-      testAddress.city = "Portland";
-      testAddress.state = "0regon";
-      testAddress.validAddress().should.equal(false);
+describe('Contact', function(){
+  describe("initialize", function() {
+    it('combines the first name and last name with a space in between', function() {
+      var testContact = Object.create(Contact);
+      testContact.initialize("John", "Smith").should.equal("John Smith");
     });
 
-    it('returns false if the city or state has invalid characters', function () {
-      var testAddress = Object.create(Address);
-      testAddress.city = "Portland";
-      testAddress.state = "Oregon";
-      testAddress.validAddress().should.equal(true);
-    })
-  });
-
-    
-
-
-  describe('fullAddress', function() {
-    it("returns the full address with nice formatting", function() {
-      var testAddress = Object.create(Address);
-      testAddress.street = "123 4th Ave";
-      testAddress.city = "Portland";
-      testAddress.state = "Oregon";
-      testAddress.fullAddress().should.equal("123 4th Ave, Portland, Oregon");
+    it("sets up an empty array", function() {
+      var testContact = Contact.create();
+      testContact.initialize();
+      testContact.addresses.should.eql([]);
     });
   });
 
+  describe("fullName", function(){
+    it("combines the firstName and the lastName seperated by a space", function(){
+      var testContact = Object.create(Contact);
+      testContact.firstName = "Dolly";
+      testContact.lastName = "Parton";
+      testContact.fullName().should.equal("Dolly Parton");
+  });
+    it("Pushes address into new contact", function() {
+      var cody = Object.create(Contact);
+      cody.addresses = [];
+      cody.firstName = "Cody";
+      cody.lastName = "Wilson";
+      var codyHome = Object.create(Address);
+      codyHome.state = "Texas";
+      codyHome.street = "Texas St.";
+      codyHome.city = "Dallas";
+      cody.addresses.push(codyHome);
+      cody.addresses.should.equal["Texas St., Dallas, Texas"];
+    });
+  });
+
+  describe("createAddress", function() {
+    it("creates an address object", function() {
+      var testContact = Contact.create();
+      var testAddress = testContact.createAddress();
+      Address.isPrototypeOf(testAddress).should.equal(true);
+    });
+
+    it("adds the address to the addresses property of the contact", function() {
+      var testContact = Contact.create();
+      var testAddress = testContact.createAddress();
+      testContact.addresses.should.eql([testAddress]);
+    });
+  });
+
+  describe("createPhoneNumber", function() {
+    it("creates a phone number object", function() {
+      var testContact = Contact.create();
+      var testNumber = testContact.createPhoneNumber();
+      PhoneNumber.isPrototypeOf(testNumber).should.equal(true);
+    });
+
+    it("adds the number to PhoneNumber property of the contact", function() {
+      var testContact = Contact.create();
+      var testNumber = testContact.createPhoneNumber();
+      testContact.phoneNumbers.should.eql([testNumber]);
+    });
+  });
+
+
 });
 
-describe('Phone', function() {
-  describe('fullPhone', function() {
-    it("returns a properly formatted phone number", function() {
-      var testPhone = Object.create(Phone);
-      testPhone.number = "7149430502";
-      testPhone.fullPhone().should.equal("(714) 943-0502")
-    })
-  })
-
-  describe('validPhone', function() {
-    it("returns false if inputted phone number does not have 10 numbers", function() {
-      var testPhone = Object.create(Phone);
-      testPhone.number = "7149430508422";
-      testPhone.validPhone().should.equal(false)
-    })
-
-    it("returns true if inputted phone number does not have 10 numbers", function() {
-      var testPhone = Object.create(Phone);
-      testPhone.number = "1234567891";
-      testPhone.validPhone().should.equal(true)
-    })
-  })
-});

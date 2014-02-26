@@ -1,34 +1,33 @@
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 body {
-	background-color: black;
-}
-
-.container {
-	width: 800px;
-	margin: 30px auto;
-	padding: 20px;
-	background-color: white;
+  background: url('http://fabiusmaximus.files.wordpress.com/2012/07/20120730-tinkerbell-dusting1.gif') right no-repeat;
+  background-color: lightpink;
 }
 
 #show-contact {
+ display: none;
+ margin-top:350px;
+ background: white;
+ opacity: .8;
+ text-align: right;
+}
+
+#tinkerbellpopup {
   display: none;
 }
 
-.contact {
-  cursor: pointer;
-  color: #0088cc;
-}
-
-.contact:hover {
+ul {
+  color: blue;
   text-decoration: underline;
+  cursor: pointer;
 }
 
-.new-address {
-  padding: 5px 0 0 0;
-  border-top: 1px solid black;
+.pink {
+  background: purple;
+  border: 2px solid white;
+  color: white;
 }
+
+.pink:hover {
+  color: white;
+}
+
